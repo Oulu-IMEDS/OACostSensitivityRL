@@ -1,0 +1,103 @@
+hydra:
+    run:
+       dir: ./outputs/saved_models/${now:%Y-%m-%d}/${comment}
+comment: ${method}_site${test_site}_T${time_interval}_n${n_epochs}_${progress_feature}_${input_feature}${input_th}_BS${batch_size}_BF${buffer_size}_LR${lr}_UP${update_every}_C${cost.hospital_cost}_TH${cost.JSW_cost_th}_Conv${cost.cost_convert_r}_Gam${use_weight_gamma}_seed${seed}
+root_path: /home/khanhnguyen/Data/OAI
+metadata_path: MetaData/OAICompleteData_ASCII
+dataframe_path: Dataframe
+images_path: Images/ResizedImages
+pretrain_RNN_path:
+data_filename: ${progress_feature}_ClinicalVars_Progression
+set_features: ['AGE', 'BMI', 'INJ','SURG','WOMAC','KL','JSW','SF12']
+fix_features: ['SEX']
+reward_feature: ['JSW']
+weight_feature: ['SF12']
+RNN_method: GRU
+time_interval: 4
+n_actions: 2
+time_baseline: 0
+method: RL
+model_arch: classic
+future_term: false
+input_feature: JSW
+input_th: 1.6
+JSW_eliminate_th: 1.6
+progress_feature: KL-JSW
+data_level: patient
+agent: dqn
+eval_every: 100
+save_model_every: 100
+select_model_from_eps: 0.5
+cost_func_ver: 3
+learning_data: dynamic
+sample_level: state
+early_stop: false
+use_weight_gamma: false
+include_one_knee: false
+distance_knee: one
+severity_awarness: false
+phi_var: JSW
+test_site: C
+normalize: min
+shape_data: false
+progressor_type: num
+use_exp: true
+weight_reward: false
+clip_gradient: false
+balance_data_by_cancel_out: false
+balance_data_by_weight_sample: false
+progression_within: false
+beam_data: false
+choose_oneside: false
+merge_personal: true
+knee_side: 0
+device: cuda
+KL_upper_th: 4
+KL_lower_th: 0
+n_epochs: 500
+seed: 18
+n_meta_features: 64
+batch_size: 64
+buffer_size: 1e4
+update_every: 5
+gamma_discount: 0.9
+dict_features:
+sf12_interval: 60
+sf12_threshold_change: 7
+multi_progression: true
+teacher_forcing_ratio: 0.5
+lr: 5e-4
+wd: 1e-4
+clip_value: 5
+PRB:
+  alpha: 0.0
+  beta: 0.0
+cost:
+  JSW_cost_th: 0.5
+  cost_convert_r: 2
+  hospital_cost: 0.5
+  true_dm_coef: 0.5
+  late_fl_coef: 0.5
+vars:
+  best_roc_auc: -1
+  best_bacc: -1
+  best_cost: -100
+RNN:
+  hidden_size: 128
+  drop_out: 0.1
+  n_layers: 1
+  var_fea_size: 16
+policy:
+  train: train
+  val: val
+eps:
+  eps_start: 1.0
+  eps_end: 0.01
+  eps_decay: 0.99
+arch:
+  l_KL_out: 5
+  l_other_out: 12
+  l_index_out: 5
+  l_preQ_unit: 22
+  drop_out: 0.2
+model_test_path:
