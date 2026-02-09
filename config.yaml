@@ -37,10 +37,10 @@ include_one_knee: false
 distance_knee: one
 severity_awarness: false
 phi_var: JSW
-test_site: C
+test_site: D
 normalize: min
 shape_data: false
-progressor_type: num
+progressor_type: prob
 use_exp: true
 weight_reward: false
 clip_gradient: false
@@ -51,7 +51,7 @@ beam_data: false
 choose_oneside: false
 merge_personal: true
 knee_side: 0
-device: cuda
+device: cpu
 KL_upper_th: 4
 KL_lower_th: 0
 n_epochs: 500
@@ -73,10 +73,10 @@ PRB:
   alpha: 0.0
   beta: 0.0
 cost:
-  JSW_cost_th: 0.5
+  JSW_cost_th: 0.7
   cost_convert_r: 2
   hospital_cost: 0.5
-  true_dm_coef: 0.5
+  true_dm_coef: 0.3
   late_fl_coef: 0.5
 vars:
   best_roc_auc: -1

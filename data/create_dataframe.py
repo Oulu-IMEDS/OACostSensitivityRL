@@ -42,7 +42,7 @@ class GenerateDataFrameOAI(ParseMetaDataOAI):
                         continue
 
                     if jsw_baseline - jsw_followup >= 0.7:
-                        row_dict['Progress'] = np.int(j)
+                        row_dict['Progress'] = int(j)
                         break
                     elif jsw_baseline - jsw_followup < 0:
                         jsw_baseline = jsw_followup
@@ -97,7 +97,7 @@ class GenerateDataFrameOAI(ParseMetaDataOAI):
                         continue
 
                     if jsw_baseline - jsw_followup >= 0.7:
-                        row_dict['Progress'].append(np.int(j))
+                        row_dict['Progress'].append(int(j))
                         jsw_baseline = jsw_followup
                     # elif jsw_baseline - jsw_followup < 0:
                         # jsw_baseline = jsw_followup
@@ -145,7 +145,7 @@ class GenerateDataFrameOAI(ParseMetaDataOAI):
 
                 if kl_followup - kl_baseline >= 1:
                     #   first progressed
-                    row_dict['Progress'] = np.int(j)
+                    row_dict['Progress'] = int(j)
                     break
                 elif kl_followup - kl_baseline < 0:
                     #   first progressed
@@ -197,7 +197,7 @@ class GenerateDataFrameOAI(ParseMetaDataOAI):
 
                     if kl_followup - kl_baseline >= 1:
                         #   first progressed
-                        row_dict['Progress'].append(np.int(j))
+                        row_dict['Progress'].append(int(j))
                         kl_baseline = kl_followup
                     elif kl_followup - kl_baseline < 0:
                         #   improvement
@@ -669,18 +669,19 @@ def main(cfg):
     # save_path = f'{root_path}{OAI_extracted_data_folder}'
     # OAI_data = ParseMetaDataOAI(cfg)
     # df = OAI_data.parsing_KL_grade()
-    cfg.dataframe_path = f'Dataframe/temp/saved_predictions_by_BA'
-    cfg.progressor_type = 'other'
-    cfg.data_level = 'knee'
-    df = create_dataframe_from_KL_prediction(cfg)
-    print(type(df['KL@0'].iloc[0]))
+
+    # cfg.dataframe_path = f'Dataframe/temp/saved_predictions_by_BA'
+    # cfg.progressor_type = 'other'
+    # cfg.data_level = 'knee'
+    # df = create_dataframe_from_KL_prediction(cfg)
+    # print(type(df['KL@0'].iloc[0]))
 
 
 
-    # create_image_path_and_progression_dataframe(cfg, 'Post_Processing' )
-    # dataframe_path = os.path.join(cfg.root_path, cfg.dataframe_path)
-    # df_post_processing = pd.read_pickle(os.path.join(dataframe_path, f'Post_processing.pkl'))
-    # create_dataframe_from_KL_prediction(cfg, df_post_processing)
+    create_image_path_and_progression_dataframe(cfg, 'Post_Processing' )
+    dataframe_path = os.path.join(cfg.root_path, cfg.dataframe_path)
+    df_post_processing = pd.read_pickle(os.path.join(dataframe_path, f'Post_processing.pkl'))
+    create_dataframe_from_KL_prediction(cfg, df_post_processing)
 
 if __name__ == "__main__":
     main()
